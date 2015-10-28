@@ -22,11 +22,9 @@ Route::post('signup', 'SignupController@signup');
 Route::post('changePassword', 'SignupController@changePassword');
 Route::post('verify', 'VerifyController@verify');
 Route::post('verifyUser', 'VerifyController@verifyUser');
-Route::post('start', 'StartController@load');
+Route::post('loadCandidates', 'StartController@loadCandidates');
 Route::post('signUpCandidate', 'StartController@createCandidate');
 Route::post('signUpCitizen', 'StartController@createCitizen');
-Route::post('initialPoll', 'StartController@initialPoll');
-Route::post('support', 'StartController@support');
 
 Route::get('/map', function()
 {

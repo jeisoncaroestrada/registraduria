@@ -22,7 +22,7 @@ class StartController extends Controller {
 	 * @return Response
 	 */
 	//carga las iniciatiavas y los datos de usuario (nombre,avatar) ademas deternina si el actual usuario debe o no realizar la encuesta inicial
-	public function load()
+	public function loadCandidates()
 	{
 		if (Auth::guest()){
 
@@ -31,54 +31,12 @@ class StartController extends Controller {
 
 		}else{
 
-			$user_id = Auth::user()->id;
-			$user_type = Auth::user()->user_type;
-			$user_name = Auth::user()->name1;
-			$avatar = Auth::user()->avatar;
+
+			$candiates = Candidate::all();
 			
-			//$markers = Marker::all();
-			if ($user_type !='user') {
+			$message = ['candidates'=> $candiates];
+        	return $message;
 
-				$initiatives = Initiative::all();
-				$topRatedInitiatives = Initiative::orderBy('votes', 'desc')->select('votes', 'title')->take(5)->get();
-				$topRateVotes =[];
-				$topRateNames =[];
-				
-				$user_votes = Vote::where('user', '=', $user_id)->get();
-
-				//logica que agrega 'supportingDisabled' si la iniciativa esta o no apollada por el usuario logueado
-				foreach ($initiatives as &$i) {
-					foreach ($user_votes as &$v) {
-					    if($i['id'] == $v['id_initiative']){
-							$i['supportingDisabled'] = true;
-					    };
-					};
-				};
-
-				//logica que configura las estadisticas de las iniciativas más votadas
-				foreach ($topRatedInitiatives as &$i) {
-					array_push($topRateVotes, $i['votes']);
-					array_push($topRateNames, $i['title']);
-				};
-
-				$leaders = User::where('user_type', '=', 'Líder')->count();
-				$executors = User::where('user_type', '=', 'Ejecutor')->count();
-				$actives = User::where('enabled', '=', 1)->count();
-				$A = Poll::where('check1', '=', 'A')->count();
-				$B = Poll::where('check1', '=', 'B')->count();
-				$C = Poll::where('check1', '=', 'C')->count();
-				$D = Poll::where('check1', '=', 'D')->count();
-				$E = Poll::where('check1', '=', 'E')->count();
-				$q1 = Poll::where('q1', '!=', '')->select('q1', 'created_at')->get();
-
-				//devolvemos un objeto con todos los elementos necesarios para la vista de inicio
-				return ['initiatives'=> $initiatives,'userName'=> $user_name,'avatar'=> $avatar,'userStadistics'=> [$leaders,$executors,$actives],'pollStadistics'=> [[$A,$B,$C,$D,$E],$q1],'votesStadistics'=> [$topRateVotes,$topRateNames]];				
-			}else{
-
-				$message = ['poll'=> 1,'userName'=> $user_name,'avatar'=> $avatar];
-            	return $message;
-
-			}
 		};
 		
 	}
