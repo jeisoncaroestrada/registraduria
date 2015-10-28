@@ -61,11 +61,11 @@ class LoginController extends Controller {
 				$headers = "Content-type: text/html";
 				$html1 = '<a target="_blank" href="';
 				$html2 = '"></a>';
-				$sender ='soporte@yodecido.net';
+				$sender ='soporte@Registraduria.co';
 				$link = $url."/#/reset_password/".$data['id']."/".$data['token'];
-				$message = '<html><head><title>Restablecer su contraeña de ingreso en YoDecido.net</title></head><body><img width="250px"src="http://yodecido.net/img/logoYoDecido_net.png"><p style="font-size: 20px;">Movimiento innovador de participación ciudadana.</p><p style="font-size: 15px;">Click aqui para restablecer su contraeña de ingreso en YoDecido.net:</p><a target="_blank" href="'.$link.'"><button style="cursor: pointer;background: #133579;padding: 5px 20px 5px 20px;border-radius: 10px;color: #fff;">Restablecer contraeña</button></a></body></html>';
+				$message = '<html><head><title>Restablecer su contraeña de ingreso en Registraduria.co</title></head><body><img width="250px"src="http://www.registraduria.gov.co/imagenes/logopal.png"><p style="font-size: 20px;">Registraduría Nacional del Estado Civil</p><p style="font-size: 15px;">Click aqui para restablecer su contraeña de ingreso en registraduria.co:</p><a target="_blank" href="'.$link.'"><button style="cursor: pointer;background: #008395;padding: 5px 20px 5px 20px;border-radius: 5px;color: #fff;">Restablecer contraeña</button></a></body></html>';
 				
-				mail($user,'Restablecer su contraeña de ingreso en YoDecido.net ',$message,$headers);
+				mail($user,'Restablecer su contraeña de ingreso en Registraduria.co ',$message,$headers);
 		        return ['success' => 'Se ha enviado un mensaje que le ayudara a restablecer su contraseña por favor revise el correo <strong>'.$user.'</strong>' ];
 	        }
 
@@ -106,10 +106,10 @@ class LoginController extends Controller {
 				$headers = "Content-type: text/html";
 				$html1 = '<a target="_blank" href="';
 				$html2 = '"></a>';
-				$message = "Click aqui para confirmar su cuenta en YoDecido.net: ".$url."/#/verify_account/".$data['id']."/".$data['token'];
+				$message = "Click aqui para confirmar su cuenta en Registraduria.co: ".$url."/#/verify_account/".$data['id']."/".$data['token'];
 				
 		        Auth::logout();
-				mail($user,'Confirmar su cuenta en YoDecido.net ',$message,$headers);
+				mail($user,'Confirmar su cuenta en Registraduria.co ',$message,$headers);
 
         		return ['active' => 'Su cuenta no esta activada, se ha enviado un mensaje de verificaion porfavor revise su correo: '.$user.' para activarla'];
 	        	

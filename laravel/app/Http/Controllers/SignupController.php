@@ -48,12 +48,12 @@ class SignupController extends Controller {
 		$url = "http://".$_SERVER['HTTP_HOST'];
 		$headers = "Content-type: text/html";
 		$html1 = '<a target="_blank" href="';
-		$sender ='soporte@yodecido.net';
+		$sender ='soporte@Registraduria.co';
 		$html2 = '"></a>';
-		$message = "Click aqui para confirmar su cuenta en YoDecido.net: ".$url."/#/verify_account/".$data['id']."/".$data['token'];
+		$message = "Click aqui para confirmar su cuenta en Registraduria.co: ".$url."/#/verify_account/".$data['id']."/".$data['token'];
 		
         Auth::logout();
-		mail($email,'Confirmar su cuenta en YoDecido.net ',"FROM:".$sender,$message,$headers);
+		mail($email,'Confirmar su cuenta en Registraduria.co ',"FROM:".$sender,$message,$headers);
         return ['success' => 'Se ha registrado correctamente por favor revise el correo <strong>'.$email.'</strong> para confirmar su cuenta' ];
      
 	}

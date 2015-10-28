@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'soporte@yodecido.net', 'name' => 'Yo Decido'],
+	'from' => ['address' => 'soporte@registraduria.co', 'name' => 'Yo Decido'],
 
 	/*
 	|--------------------------------------------------------------------------
