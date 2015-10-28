@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Registraduria
+        psr4_prefix: Registraduria
+        src_path: app

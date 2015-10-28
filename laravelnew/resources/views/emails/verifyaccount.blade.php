@@ -1,0 +1,1 @@
+Click aqui para confirmar tu cuenta en YoDecido.net: {{ url('http://localhost:8080/YoDecido_net2/public/#/verifyaccount?n='.$data['id'].'&u='.$data['token']) }}
