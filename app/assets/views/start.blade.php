@@ -2,6 +2,16 @@
 <div ng-show="check" class="full-height wid-100 pos-absolute center-items bg-W">
 	<md-progress-circular  md-mode="indeterminate"></md-progress-circular>
 </div>
+<nav class="navbar navbar-default navbar-fixed-top animation-all hidden-md hidden-lg">
+	  <div class="container-fluid">
+	  	<div class="col-md-1 col-sm-1 col-xs-2">
+	      <div id="mainMenu" class="mainMenu bg-1"  ng-click="openAside('left',true)"><i class="fc-W pointer mdi mdi-menu"></i></div>
+	  	</div>
+	    <div class="col-md-2 col-sm-4 col-xs-8">
+	        <img ng-click="goTo('/NaN')" class="img-responsive logo-navbar float-left" src="img/logo-prueba.png">
+	    </div>
+	  </div>
+	</nav>
 <!-- panel INICIO -->
 <section class="bg-W wid-100" ng-init="checkLogin()">
 	<article class="start-menu">
@@ -169,20 +179,22 @@
 			    </div>
 		 	</slide>
 		 	<slide active="startModules==2">
-			 	<div class="bg-W bd-silver border-1px ng-hide-hidden" ng-init="loadCandidates()">
-			 		<div class="inline-b">
+			 	<div class="jumbotron bg-W bd-silver border-1px ng-hide-hidden" ng-init="loadCandidates()">
+			 		<form class="inline-b wid-100">
 					    <p class="fc-dark fs-30 text-center">votar por un candidato!</p>
-					 	<div class="team-card bd-silver border-1px col-xs-12 col-sm-6 col-md-6 col-lg-6 inline-b" ng-repeat="candidate in totalCandidates">
-							<div class="wid-100">
-								<h2 class="fc-4">[[candidate.names+ ' '+ candidate.lastnames]]</h2>
-								<h3 class="fc-G">[[candidate.id_number]]</h3>
-								<h3 class="fc-G">[[candidate.place_of_birth]], [[candidate.birthdate]] </h3>
+					 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 inline-b margin-b-10" ng-repeat="candidate in totalCandidates">
+							<div class="wid-100 candidate-card bd-silver border-1px center-items">
+								<div class="wid-100">
+									<h2 class="fc-4">[[candidate.names+ ' '+ candidate.lastnames]]</h2>
+									<h3 class="fc-G">[[candidate.id_number]]</h3>
+									<h3 class="fc-G">[[candidate.place_of_birth]], [[candidate.birthdate]] </h3>
+								</div>
 							</div>
 					 	</div>
 					    <div ng-if="processing" class="animate-if-panel progress-circular-panel center-items bg-B opacity-05">
 					        <md-progress-circular  md-mode="indeterminate"></md-progress-circular>
 					    </div>
-				    </div>
+				    </form>
 			    </div>
 		 	</slide>
 	    </carousel>

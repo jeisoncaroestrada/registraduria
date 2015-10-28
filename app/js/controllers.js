@@ -311,7 +311,7 @@ angular.module("Registraduria")
     $scope.checkLogin();
 
     //objeto que contiene los diferentes modulos de la aplicacion 
-    $scope.startModules = 0
+    $rootScope.startModules = 0
 
 	$scope.openAside = function(position, backdrop) {
       $scope.asideState = {
@@ -329,19 +329,7 @@ angular.module("Registraduria")
         placement: position,
         size: 'sm',
         backdrop: backdrop,
-        controller: function($scope, $modalInstance) {
-
-        	$scope.ok = function(e) {
-	            $modalInstance.close();
-	            e.stopPropagation();
-            };
-
-	        $scope.cancel = function(e) {
-	            $modalInstance.dismiss();
-	            e.stopPropagation();
-	        };
-
-        }
+        controller: 'AsideMenuCtrl',
       }).result.then(postClose, postClose);
     }
 
@@ -416,19 +404,19 @@ angular.module("Registraduria")
 		
 		if (module == 0) {
 
-			$scope.startModules = 0;
+			$rootScope.startModules = 0;
 			$scope.initializeForms();
 			$scope.citizenSuccess = false;
 			$scope.signUpCitizenMessage = false;
 		}else if (module == 1) {
 
-			$scope.startModules = 1;
+			$rootScope.startModules = 1;
 			$scope.initializeForms();
 			$scope.candidateSuccess = false;
 			$scope.signUpCandidateMessage = false;
 		}else{
 
-			$scope.startModules = 2;
+			$rootScope.startModules = 2;
 			$scope.initializeForms();
 			$scope.signUpMessage = false;
 		};
@@ -565,6 +553,153 @@ angular.module("Registraduria")
 	};
 
 
+	// Para usar el html en angular
+	$scope.sanitize = function (item) {
+		if(!item) return
+		return $sce.trustAsHtml(item);
+	}   
+
+
+
+})
+
+// *****************************************************************************
+// Controlador del aside menu de inicio
+// *****************************************************************************
+.controller('AsideMenuCtrl',function($scope,$http,$location,$rootScope,$sce,$timeout,$modalInstance){
+	
+	$scope.ok = function(e) {
+        $modalInstance.close();
+        e.stopPropagation();
+    };
+
+    $scope.cancel = function(e) {
+        $modalInstance.dismiss();
+        e.stopPropagation();
+    };
+
+	//funcion que verifica que usuario esta logueado actualmente 
+    $scope.checkLogin = function(){
+		$scope.check = true;
+
+		$http.post('loginCheck', [''])
+	    .success(function(data)
+	    {	
+	    	
+	    	if(data['error']){
+				$location.path( "/" );
+
+			}else if(data['name1']){
+
+				$scope.activeSession = data;
+
+			}
+
+			$scope.check = false;
+
+	    })
+	    .error(function(data)
+	    {
+	    	$scope.loginMessage = 'Por favor ingrese el Usuario y Contraseña';
+	    });
+    };
+
+    $scope.checkLogin();
+	
+    //cierra la actual sesion
+    $scope.logOut = function () {
+
+    	$scope.check = true
+
+		//peticion al servidor usando php
+        $http.post('logout', [''])
+        .success(function(data)
+        {	
+        	
+        	if(data['error']){
+        		$scope.sessionMessage = data['error']
+    		}else if(data['success']){
+    			$scope.activeSession = false;
+    			$scope.checkLogin();
+    			
+    		}
+
+        })
+        .error(function(data)
+        {
+        	$scope.sessionMessage = 'Por favor ingrese todos los datos'
+        });
+		
+	};
+
+	//esta funcion limpia todos los formularios cuando se cambia de 'slide' en el 'aside' de login
+	$scope.initializeForms = function(){
+
+
+		//se instancia el objeto que contienen los datos que se ingresan en el formulario HTML de login
+		$scope.newCitizen = {
+			id_number:'',
+			names: '',
+			lastnames: '',
+			birthdate: '',
+			place_of_birth: '',
+			height: '',
+			gender: '',
+			rh: '',
+			date_place_expedition: '',
+			email: '',
+		}
+
+		//se instancia el objeto que contiene todos los campos del formulario HTML de signUp
+		$scope.newCandidate = {
+			id_number:'',
+			names: '',
+			lastnames: '',
+			birthdate: '',
+			place_of_birth: '',
+			height: '',
+			gender: '',
+			rh: '',
+			date_place_expedition: '',
+			email: '',
+		}
+
+		//se instancia el objeto que contienen los datos que se ingresan en el formulario HTML de recordar contraseña
+		$scope.rememberForm = {
+			user: '',
+		}
+	}
+
+	$scope.initializeForms();
+
+	//funcion que cambia los slides de session
+	$scope.goToModule = function (module) {
+
+		
+		if (module == 0) {
+
+			$rootScope.startModules = 0;
+			$scope.initializeForms();
+			$scope.citizenSuccess = false;
+			$scope.signUpCitizenMessage = false;
+		}else if (module == 1) {
+
+			$rootScope.startModules = 1;
+			$scope.initializeForms();
+			$scope.candidateSuccess = false;
+			$scope.signUpCandidateMessage = false;
+		}else{
+
+			$rootScope.startModules = 2;
+			$scope.initializeForms();
+			$scope.signUpMessage = false;
+		};
+		
+		$modalInstance.close();
+        e.stopPropagation();
+	}
+
+	
 	// Para usar el html en angular
 	$scope.sanitize = function (item) {
 		if(!item) return

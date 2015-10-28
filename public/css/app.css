@@ -2853,6 +2853,9 @@ body {
   top: 0;
   left: 0;
   border-right: 1px solid silver; }
+  @media (max-width: 992px) {
+    .start-menu {
+      display: none; } }
   .start-menu .menu-header {
     width: 100%;
     background: #fff;
@@ -2867,6 +2870,11 @@ body {
   top: 0;
   left: 30%;
   padding: 50px; }
+  @media (max-width: 992px) {
+    .start-main-panel {
+      width: 100%;
+      left: 0%;
+      top: 70px; } }
 
 @media (max-width: 480px) {
   .fs-xs-28 {
@@ -2971,6 +2979,23 @@ header .icon-l {
   font-size: 12px;
   text-align: center;
   color: white; }
+
+.candidate-card {
+  border-radius: 10px;
+  min-height: 200px;
+  margin-bottom: 20px; }
+  .candidate-card h2 {
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold; }
+  .candidate-card h3 {
+    font-size: 12px;
+    text-align: center;
+    color: #000000; }
+  .candidate-card p {
+    font-size: 12px;
+    text-align: center;
+    color: white; }
 
 .navbar {
   border-radius: 0px;
